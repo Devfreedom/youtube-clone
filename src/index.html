@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YouTube</title>
+  <link rel="stylesheet" href="../public/output.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      background-color: #0f0f0f;
+      color: #f1f1f1;
+      font-family: 'Roboto', Arial, sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body class="flex flex-col h-screen overflow-hidden">
+
+  <!-- ============================================================
+       TOP NAVBAR
+  ============================================================ -->
+  <header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 h-14 bg-[#0f0f0f]">
+
+    <!-- Left: Hamburger + Logo -->
+    <div class="flex items-center gap-4">
+      <button class="nav-icon p-2 flex flex-col gap-[5px] cursor-pointer">
+        <span class="block w-5 h-[2px] bg-white rounded"></span>
+        <span class="block w-5 h-[2px] bg-white rounded"></span>
+        <span class="block w-5 h-[2px] bg-white rounded"></span>
+      </button>
+
+      <a href="#" class="flex items-center gap-[2px]">
+        <svg width="34" height="24" viewBox="0 0 34 24" fill="none">
+          <rect width="34" height="24" rx="6" fill="#FF0000"/>
+          <polygon points="14,7 14,17 23,12" fill="white"/>
+        </svg>
+        <span class="text-white font-semibold text-xl tracking-tight ml-1">YouTube</span>
+        <span class="text-[#aaa] text-[10px] ml-[2px] mt-[10px] font-medium">NG</span>
+      </a>
+    </div>
+
+    <!-- Center: Search -->
+    <div class="flex items-center gap-2 flex-1 max-w-[600px] mx-8">
+      <div class="flex flex-1 h-10 rounded-full overflow-hidden border border-[#303030]">
+        <input
+          type="text"
+          placeholder="Search"
+          class="search-bar flex-1 bg-[#121212] text-white text-sm px-4 placeholder-[#aaa]"
+        />
+        <button class="search-btn bg-[#222] px-5 flex items-center justify-center border-l border-[#303030] cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+               fill="none" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </div>
+      <!-- Mic -->
+      <button class="nav-icon w-10 h-10 flex items-center justify-center rounded-full bg-[#222] cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+             fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="2" width="6" height="11" rx="3"/>
+          <path d="M5 10a7 7 0 0 0 14 0"/>
+          <line x1="12" y1="19" x2="12" y2="22"/>
+          <line x1="9" y1="22" x2="15" y2="22"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Right: Actions -->
+    <div class="flex items-center gap-2">
+      <!-- Create -->
+      <button class="nav-icon flex items-center gap-2 px-3 py-2 rounded-full text-sm text-white font-medium cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        Create
+      </button>
+      <!-- Bell -->
+      <button class="nav-icon w-10 h-10 flex items-center justify-center rounded-full relative cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+             fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        <span class="absolute top-1 right-1 w-2 h-2 bg-red-600 rounded-full"></span>
+      </button>
+      <!-- Avatar -->
+      <button class="w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-br from-green-400 to-blue-500 text-white text-xs font-bold cursor-pointer">
+        FC
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN LAYOUT (sidebar + content)
+  ============================================================ -->
+  <div class="flex pt-14 h-full overflow-hidden">
+
+    <!-- ========================
+         LEFT SIDEBAR
+    ======================== -->
+    <aside class="w-60 flex-shrink-0 overflow-y-auto py-3 pr-2 bg-[#0f0f0f]" style="scrollbar-width:thin;">
+      <nav class="px-2">
+
+        <!-- Home -->
+        <a href="#" class="sidebar-item active flex items-center gap-5 px-3 py-2.5 mb-1 cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+          <span class="text-sm font-semibold">Home</span>
+        </a>
+
+        <!-- Shorts -->
+        <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2.5 mb-1 cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
+            <path d="M17.77 10.32l-1.2-.5L18 9c1.66-.69 2.45-2.59 1.76-4.25l-.74-1.76-4.25 1.77L15 6c.37.87.04 1.88-.77 2.34l-1.21.71A3.75 3.75 0 0 0 11 6H7C5.34 6 4 7.34 4 9v10c0 1.66 1.34 3 3 3h4c1.66 0 3-1.34 3-3v-4.17l4 2.34V11l-3.23-.68zm-3.77 8.68a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v10z"/>
+          </svg>
+          <span class="text-sm">Shorts</span>
+        </a>
+
+        <div class="my-3 border-t border-[#3f3f3f]"></div>
+
+        <!-- Subscriptions Header -->
+        <div class="flex items-center justify-between px-3 mb-2">
+          <span class="text-sm font-semibold text-white">Subscriptions</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white">
+            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+          </svg>
+        </div>
+
+        <!-- Subscription List -->
+        <div class="space-y-0.5">
+          <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-1.5 cursor-pointer">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 bg-gradient-to-br from-blue-500 to-purple-600"></div>
+            <span class="text-sm text-[#f1f1f1] truncate">Watchman Pankshin</span>
+          </a>
+          <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-1.5 cursor-pointer">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 bg-gradient-to-br from-red-500 to-orange-400"></div>
+            <span class="text-sm text-[#f1f1f1] truncate">WCCRM LAGOS</span>
+          </a>
+          <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-1.5 cursor-pointer">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 bg-gradient-to-br from-orange-400 to-yellow-500"></div>
+            <span class="text-sm text-[#f1f1f1] truncate">DonAza</span>
+            <span class="ml-auto w-2 h-2 rounded-full bg-blue-500 flex-shrink-0"></span>
+          </a>
+          <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-1.5 cursor-pointer">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
+              <span class="text-[8px] font-bold text-white">W3</span>
+            </div>
+            <span class="text-sm text-[#f1f1f1] truncate">CTC Web3 Acad...</span>
+            <span class="ml-auto w-2 h-2 rounded-full bg-blue-500 flex-shrink-0"></span>
+          </a>
+          <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-1.5 cursor-pointer">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 bg-gradient-to-br from-pink-500 to-red-600 flex items-center justify-center">
+              <span class="text-[8px] font-bold text-white">H</span>
+            </div>
+            <span class="text-sm text-[#f1f1f1] truncate">HONESTY MEDIA</span>
+            <span class="ml-auto w-2 h-2 rounded-full bg-blue-500 flex-shrink-0"></span>
+          </a>
+          <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-1.5 cursor-pointer">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 bg-gradient-to-br from-cyan-400 to-blue-500"></div>
+            <span class="text-sm text-[#f1f1f1] truncate">Ether Cool</span>
+          </a>
+          <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-1.5 cursor-pointer">
+            <div class="w-6 h-6 rounded-full flex-shrink-0 bg-gradient-to-br from-green-400 to-lime-500"></div>
+            <span class="text-sm text-[#f1f1f1] truncate">Bro Coli</span>
+          </a>
+          <!-- Show more -->
+          <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-1.5 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M7 10l5 5 5-5z"/>
+            </svg>
+            <span class="text-sm text-[#f1f1f1]">Show more</span>
+          </a>
+        </div>
+
+        <div class="my-3 border-t border-[#3f3f3f]"></div>
+
+        <!-- You Section -->
+        <div class="flex items-center justify-between px-3 mb-2">
+          <span class="text-sm font-semibold text-white">You</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white">
+            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+          </svg>
+        </div>
+
+        <div class="space-y-0.5">
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M13 3a9 9 0 1 0 .001 18.001A9 9 0 0 0 13 3zm0 16a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm.5-9.5h-2v5l4.25 2.5.75-1.23-3-1.77V9.5z"/>
+            </svg>
+            <span class="text-sm text-[#f1f1f1]">History</span>
+          </a>
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+            </svg>
+            <span class="text-sm text-[#f1f1f1]">Playlists</span>
+          </a>
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/>
+            </svg>
+            <span class="text-sm text-[#f1f1f1]">Watch later</span>
+          </a>
+
+          <!-- Liked videos -->
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+            </svg>
+            <span class="text-sm text-[#f1f1f1]">Liked videos</span>
+          </a>
+
+          <!-- Your videos -->
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+            </svg>
+            <span class="text-sm text-[#f1f1f1]">Your videos</span>
+          </a>
+
+          <!-- Downloads -->
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 7h14v2H5v-2z"/>
+            </svg>
+            <span class="text-sm text-[#f1f1f1]">Downloads</span>
+          </a>
+        </div>
+
+        <div class="my-3 border-t border-[#3f3f3f]"></div>
+
+        <!-- ── Explore ── -->
+        <div class="px-3 mb-2">
+          <span class="text-sm font-semibold text-white">Explore</span>
+        </div>
+
+        <div class="space-y-0.5">
+          <!-- Music -->
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+            <span class="text-sm text-[#f1f1f1]">Music</span>
+          </a>
+          <!-- Gaming -->
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5S14.67 12 15.5 12s1.5.67 1.5 1.5S16.33 15 15.5 15zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5S19.33 12 18.5 12z"/>
+            </svg>
+            <span class="text-sm text-[#f1f1f1]">Gaming</span>
+          </a>
+          <!-- News -->
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4v-2z"/>
+            </svg>
+            <span class="text-sm text-[#f1f1f1]">News</span>
+          </a>
+          <!-- Show more -->
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M7 10l5 5 5-5z"/>
+            </svg>
+            <span class="text-sm text-[#f1f1f1]">Show more</span>
+          </a>
+        </div>
+
+        <div class="my-3 border-t border-[#3f3f3f]"></div>
+
+        <!-- ── More from YouTube ── -->
+        <div class="px-3 mb-2">
+          <span class="text-sm font-semibold text-white">More from YouTube</span>
+        </div>
+
+        <div class="space-y-0.5">
+          <!-- YouTube Premium -->
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <div class="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded bg-[#ff0000]">
+              <svg width="12" height="10" viewBox="0 0 34 24" fill="none">
+                <rect width="34" height="24" rx="6" fill="#FF0000"/>
+                <polygon points="14,7 14,17 23,12" fill="white"/>
+              </svg>
+            </div>
+            <span class="text-sm text-[#f1f1f1]">YouTube Premium</span>
+          </a>
+          <!-- YouTube Studio -->
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <div class="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full bg-[#ff0000]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="white">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+              </svg>
+            </div>
+            <span class="text-sm text-[#f1f1f1]">YouTube Studio</span>
+          </a>
+          <!-- YouTube Music -->
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <div class="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded-full bg-[#ff0000]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="white">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+              </svg>
+            </div>
+            <span class="text-sm text-[#f1f1f1]">YouTube Music</span>
+          </a>
+          <!-- YouTube Kids -->
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <div class="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded bg-[#ff0000]">
+              <svg width="12" height="10" viewBox="0 0 34 24" fill="none">
+                <rect width="34" height="24" rx="6" fill="#FF0000"/>
+                <polygon points="14,7 14,17 23,12" fill="white"/>
+              </svg>
+            </div>
+            <span class="text-sm text-[#f1f1f1]">YouTube Kids</span>
+          </a>
+        </div>
+
+        <div class="my-3 border-t border-[#3f3f3f]"></div>
+
+        <!-- ── Settings & Report ── -->
+        <div class="space-y-0.5 pb-4">
+          <!-- Settings -->
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+            </svg>
+            <span class="text-sm text-[#f1f1f1]">Settings</span>
+          </a>
+          <!-- Report history -->
+          <a href="#" class="sidebar-item flex items-center gap-5 px-3 py-2 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z"/>
+            </svg>
+            <span class="text-sm text-[#f1f1f1]">Report history</span>
+          </a>
+        </div>
+
+      </nav>
+    </aside>
+
+    <!-- ========================
+         MAIN CONTENT
+    ======================== -->
+    <main class="flex-1 overflow-y-auto pb-10 bg-[#0f0f0f]">
+
+      <!-- Filter Chips -->
+      <div class="no-scrollbar sticky top-0 z-40 flex items-center gap-3 px-6 py-3 overflow-x-auto bg-[#0f0f0f]">
+        <button class="chip chip-active flex-shrink-0 px-3 py-1 rounded-lg text-sm font-medium cursor-pointer" data-chip>All</button>
+        <button class="chip chip-inactive flex-shrink-0 px-3 py-1 rounded-lg text-sm cursor-pointer" data-chip>News</button>
+        <button class="chip chip-inactive flex-shrink-0 px-3 py-1 rounded-lg text-sm cursor-pointer" data-chip>Music</button>
+        <button class="chip chip-inactive flex-shrink-0 px-3 py-1 rounded-lg text-sm cursor-pointer" data-chip>Podcasts</button>
+        <button class="chip chip-inactive flex-shrink-0 px-3 py-1 rounded-lg text-sm whitespace-nowrap cursor-pointer" data-chip>Daniel Kolawole Olukoya</button>
+        <button class="chip chip-inactive flex-shrink-0 px-3 py-1 rounded-lg text-sm cursor-pointer" data-chip>Mixes</button>
+        <button class="chip chip-inactive flex-shrink-0 px-3 py-1 rounded-lg text-sm cursor-pointer" data-chip>Nollywood</button>
+        <button class="chip chip-inactive flex-shrink-0 px-3 py-1 rounded-lg text-sm cursor-pointer" data-chip>Righteousness</button>
+        <button class="chip chip-inactive flex-shrink-0 px-3 py-1 rounded-lg text-sm cursor-pointer" data-chip>Intercessions</button>
+        <button class="chip chip-inactive flex-shrink-0 px-3 py-1 rounded-lg text-sm cursor-pointer" data-chip>Live</button>
+        <button class="chip chip-inactive flex-shrink-0 px-3 py-1 rounded-lg text-sm cursor-pointer" data-chip>AI</button>
+        <button class="chip chip-inactive flex-shrink-0 px-3 py-1 rounded-lg text-sm cursor-pointer" data-chip>Thrillers</button>
+        <button class="chip chip-inactive flex-shrink-0 px-3 py-1 rounded-lg text-sm cursor-pointer" data-chip>Contemporary</button>
+        <button class="chip chip-inactive flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg text-sm cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white">
+            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- ==================
+           VIDEO GRID
+      ================== -->
+     <a href="https://youtu.be/sJ4BmA72Jls?si=CSAAYA6-deB8Cphx">
+      <div class="grid gap-4 px-6 pb-6" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+
+        <!-- Card 1: Christmas / Pagan -->
+        <div class="video-card cursor-pointer group">
+          <div class="relative rounded-xl overflow-hidden aspect-video mb-3"
+              > <img class="w-full h-full object-cover"  src="../public/images.jpeg" alt="">
+            <div class="absolute top-3 left-3 right-10">
+            <br>
+              </p>
+            </div>
+            <span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs font-medium px-1.5 py-0.5 rounded">1:56:51</span>
+            <div class="thumb-overlay absolute inset-0 bg-black/20 flex items-center justify-center">
+              <div class="w-12 h-12 bg-black/70 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="w-9 h-9 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center text-white text-xs font-bold bg-gradient-to-br from-purple-700 to-indigo-600">WP</div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[#f1f1f1] text-sm font-medium leading-snug line-clamp-2 mb-1">Christmas Day: Pagan Origins, End-Time Deception &amp; God's Call to Separation</p>
+              <p class="text-[#aaa] text-[13px] hover:text-white cursor-pointer">Watchman Pankshin</p>
+              <p class="text-[#aaa] text-[13px]">577 views · 2 months ago</p>
+            </div>
+            <button class="menu-btn text-[#aaa] hover:text-white flex-shrink-0 self-start pt-0.5 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/>
+              </svg>
+            </button>
+          </div>
+        </div> </a>
+
+        <!-- Card 2: US Air Defense -->
+        <div class="video-card cursor-pointer group">
+            <a href="https://www.youtube.com/watch?v=-On9HVcDuWE&t=43s&pp=ygU3VVMgQWlyIERlZmVuc2UgaW4gQWN0aW9uIOKAlCBTaHJlZGRpbmcgSXJhbmlhbiBNaXNzaWxlcw%3D%3D">
+          <div class="relative rounded-xl overflow-hidden aspect-video mb-3" >
+            <img  src="../public/video2.avif" alt="">
+               style="background:linear-gradient(180deg,#4a7fa5 0%,#87CEEB 40%,#8B7355 80%);">
+            <span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs font-medium px-1.5 py-0.5 rounded">18:46</span>
+            <div class="thumb-overlay absolute inset-0 bg-black/20 flex items-center justify-center">
+              <div class="w-12 h-12 bg-black/70 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+            </div>
+          </div>
+                </a>
+
+          <div class="flex gap-3">
+            <div class="w-9 h-9 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center bg-[#1a1a1a] border border-[#555]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="gold">
+                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+              </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[#f1f1f1] text-sm font-medium leading-snug line-clamp-2 mb-1">US Air Defense in Action — Shredding Iranian Missiles</p>
+              <p class="text-[#aaa] text-[13px] hover:text-white cursor-pointer">Beyond Military</p>
+              <p class="text-[#aaa] text-[13px]">510K views · 1 day ago</p>
+            </div>
+            <button class="menu-btn text-[#aaa] hover:text-white flex-shrink-0 self-start pt-0.5 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="video-card cursor-pointer group">
+            <a href="https://www.youtube.com/watch?v=TBf3pA3L1OQ&t=27s&pp=ygU7QWZyaWNhJ3MgSGlkZGVuIFdvbmRlcnMg4oCUIFVudG9sZCBTdG9yaWVzIG9mIHRoZSBDb250aW5lbnTSBwkJrgoBhyohjO8%3D">
+          <div class="relative rounded-xl overflow-hidden aspect-video mb-3  flex items-center justify-center">
+             <img src="../public/video3.jpg" alt="">
+            <span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs font-medium px-1.5 py-0.5 rounded">42:18</span>
+            <div class="thumb-overlay absolute inset-0 bg-black/20 flex items-center justify-center">
+              <div class="w-12 h-12 bg-black/70 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+            </div>
+          </div>
+          </a>
+          <div class="flex gap-3">
+            <div class="w-9 h-9 rounded-full flex-shrink-0 bg-green-700 flex items-center justify-center text-white text-xs font-bold">N</div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[#f1f1f1] text-sm font-medium leading-snug line-clamp-2 mb-1">Africa's Hidden Wonders — Untold Stories of the Continent</p>
+              <p class="text-[#aaa] text-[13px]">NatGeo Africa</p>
+              <p class="text-[#aaa] text-[13px]">1.2M views · 3 days ago</p>
+            </div>
+            <button class="menu-btn text-[#aaa] hover:text-white flex-shrink-0 self-start pt-0.5 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="video-card cursor-pointer group">
+          <div class="relative rounded-xl overflow-hidden aspect-video mb-3 bg-gradient-to-br from-[#0a0a2a] to-[#1a1a5a] flex items-center justify-center">
+            <img src="../public/video4.avif" alt="">
+            
+            <span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs font-medium px-1.5 py-0.5 rounded">24:03</span>
+            <div class="thumb-overlay absolute inset-0 bg-black/20 flex items-center justify-center">
+              <div class="w-12 h-12 bg-black/70 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="w-9 h-9 rounded-full flex-shrink-0 bg-blue-700 flex items-center justify-center text-white text-xs font-bold">TC</div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[#f1f1f1] text-sm font-medium leading-snug line-clamp-2 mb-1">The Future of AI in Africa — What You Need to Know in 2025</p>
+              <p class="text-[#aaa] text-[13px]">TechCentral NG</p>
+              <p class="text-[#aaa] text-[13px]">89K views · 5 hours ago</p>
+            </div>
+            <button class="menu-btn text-[#aaa] hover:text-white flex-shrink-0 self-start pt-0.5 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /video grid -->
+
+      <!-- ==================
+           SHORTS SECTION
+      ================== -->
+      <div class="px-6 mt-2 pb-8">
+
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="#ff0000">
+              <path d="M17.77 10.32l-1.2-.5L18 9c1.66-.69 2.45-2.59 1.76-4.25l-.74-1.76-4.25 1.77L15 6c.37.87.04 1.88-.77 2.34l-1.21.71A3.75 3.75 0 0 0 11 6H7C5.34 6 4 7.34 4 9v10c0 1.66 1.34 3 3 3h4c1.66 0 3-1.34 3-3v-4.17l4 2.34V11l-3.23-.68z"/>
+            </svg>
+            <span class="text-white text-xl font-bold">Shorts</span>
+          </div>
+          <button class="nav-icon p-2 rounded-full cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Shorts Grid (5 columns) -->
+        <div class="grid gap-3" style="grid-template-columns:repeat(5,1fr);">
+
+          <!-- Short 1 -->
+          <div class="short-card cursor-pointer">
+            <a href=" https://www.youtube.com/shorts/o1swbEX3sfQ">
+            <div class="relative rounded-xl overflow-hidden mb-2"
+                 style="aspect-ratio:9/16; background:linear-gradient(160deg,#2a0a00,#7a3000);">
+               <img src="../public/shorts1.avif" alt="">
+              <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 px-3">
+              </div>
+              <span class="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] px-1 py-0.5 rounded">3:21</span>
+            </div>
+            <p class="text-[#f1f1f1] text-xs leading-snug line-clamp-2">Watchman Studio Ekiti — Live Praise Session</p>
+              </a>
+          </div>
+          <!-- Short 2 -->
+          <div class="short-card cursor-pointer">
+            <div class="relative rounded-xl overflow-hidden mb-2"
+                 style="aspect-ratio:9/16; background:linear-gradient(160deg,#1a0a2a,#4a1a7a);">
+               <img src="../public/shorts2.avif" alt="">
+              <div class="absolute inset-0 flex items-center justify-center px-3">
+                
+              </div>
+              <span class="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] px-1 py-0.5 rounded">0:58</span>
+            </div>
+            <p class="text-[#f1f1f1] text-xs leading-snug line-clamp-2">How Spells Are Casted By Music.. 👁️😱</p>
+          </div>
+
+          <!-- Short 3 -->
+          <div class="short-card cursor-pointer">
+            <a href=" https://youtube.com/shorts/NjJ7JDqGUj0?si=oDXWDyMFiF0eLl6P">
+            <div class="relative rounded-xl overflow-hidden mb-2"
+                 style="aspect-ratio:9/16; background:linear-gradient(160deg,#1a0000,#500000);">
+                 <img src="../public/shorts3.avif" alt="">
+              <div class="absolute inset-0 flex items-center justify-center px-3">
+              </div>
+              <span class="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] px-1 py-0.5 rounded">0:44</span>
+            </div>
+            <p class="text-[#f1f1f1] text-xs leading-snug line-clamp-2">The man who conquers his lust conquers everything</p>
+            </a>
+          </div>
+
+
+          <!-- Short 4 -->
+          <div class="short-card cursor-pointer">
+            <div class="relative rounded-xl overflow-hidden mb-2"
+                 style="aspect-ratio:9/16; background:linear-gradient(160deg,#111,#222);">
+                 <img src="../public/shorts5.avif" alt="">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="40" viewBox="0 0 80 40" fill="none">
+                  <circle cx="20" cy="20" r="18" stroke="#555" stroke-width="4" fill="rgba(100,180,255,0.1)"/>
+                  <circle cx="60" cy="20" r="18" stroke="#555" stroke-width="4" fill="rgba(100,180,255,0.1)"/>
+                  <line x1="38" y1="20" x2="42" y2="20" stroke="#555" stroke-width="3"/>
+                </svg>
+              </div>
+              <span class="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] px-1 py-0.5 rounded">1:02</span>
+            </div>
+            <p class="text-[#f1f1f1] text-xs leading-snug line-clamp-2">When your glasses fog up 😂</p>
+          </div>
+
+          <!-- Short 5 -->
+          <div class="short-card cursor-pointer">
+            <div class="relative rounded-xl overflow-hidden mb-2"
+                 style="aspect-ratio:9/16; background:linear-gradient(160deg,#0a1a2a,#1a3a5a);">
+                 <img src="../public/shorts 6.avif" alt="">
+              <div class="absolute inset-0 flex items-center justify-center px-3">
+                
+              </div>
+              <span class="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] px-1 py-0.5 rounded">0:31</span>
+            </div>
+            <p class="text-[#f1f1f1] text-xs leading-snug line-clamp-2">Oh What would I do Without Transpose 🎹🎹</p>
+          </div>
+
+        </div><!-- /shorts grid -->
+      </div><!-- /shorts section -->
+
+      <!-- ==================
+           VIDEO GRID
+      ================== -->
+     <a href="https://youtu.be/sJ4BmA72Jls?si=CSAAYA6-deB8Cphx">
+      <div class="grid gap-4 px-6 pb-6" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+
+        <!-- Card 1: Christmas / Pagan -->
+        <div class="video-card cursor-pointer group">
+          <div class="relative rounded-xl overflow-hidden aspect-video mb-3"
+              > <img class="w-full h-full object-cover"  src="../public/images.jpeg" alt="">
+            <div class="absolute top-3 left-3 right-10">
+            <br>
+              </p>
+            </div>
+            <span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs font-medium px-1.5 py-0.5 rounded">1:56:51</span>
+            <div class="thumb-overlay absolute inset-0 bg-black/20 flex items-center justify-center">
+              <div class="w-12 h-12 bg-black/70 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="w-9 h-9 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center text-white text-xs font-bold bg-gradient-to-br from-purple-700 to-indigo-600">WP</div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[#f1f1f1] text-sm font-medium leading-snug line-clamp-2 mb-1">Christmas Day: Pagan Origins, End-Time Deception &amp; God's Call to Separation</p>
+              <p class="text-[#aaa] text-[13px] hover:text-white cursor-pointer">Watchman Pankshin</p>
+              <p class="text-[#aaa] text-[13px]">577 views · 2 months ago</p>
+            </div>
+            <button class="menu-btn text-[#aaa] hover:text-white flex-shrink-0 self-start pt-0.5 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/>
+              </svg>
+            </button>
+          </div>
+        </div> </a>
+
+        <!-- Card 2: US Air Defense -->
+        <div class="video-card cursor-pointer group">
+            <a href="https://www.youtube.com/watch?v=-On9HVcDuWE&t=43s&pp=ygU3VVMgQWlyIERlZmVuc2UgaW4gQWN0aW9uIOKAlCBTaHJlZGRpbmcgSXJhbmlhbiBNaXNzaWxlcw%3D%3D">
+          <div class="relative rounded-xl overflow-hidden aspect-video mb-3" >
+            <img  src="../public/video2.avif" alt="">
+               style="background:linear-gradient(180deg,#4a7fa5 0%,#87CEEB 40%,#8B7355 80%);">
+            <span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs font-medium px-1.5 py-0.5 rounded">18:46</span>
+            <div class="thumb-overlay absolute inset-0 bg-black/20 flex items-center justify-center">
+              <div class="w-12 h-12 bg-black/70 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+            </div>
+          </div>
+                </a>
+
+          <div class="flex gap-3">
+            <div class="w-9 h-9 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center bg-[#1a1a1a] border border-[#555]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="gold">
+                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+              </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[#f1f1f1] text-sm font-medium leading-snug line-clamp-2 mb-1">US Air Defense in Action — Shredding Iranian Missiles</p>
+              <p class="text-[#aaa] text-[13px] hover:text-white cursor-pointer">Beyond Military</p>
+              <p class="text-[#aaa] text-[13px]">510K views · 1 day ago</p>
+            </div>
+            <button class="menu-btn text-[#aaa] hover:text-white flex-shrink-0 self-start pt-0.5 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="video-card cursor-pointer group">
+            <a href="https://www.youtube.com/watch?v=TBf3pA3L1OQ&t=27s&pp=ygU7QWZyaWNhJ3MgSGlkZGVuIFdvbmRlcnMg4oCUIFVudG9sZCBTdG9yaWVzIG9mIHRoZSBDb250aW5lbnTSBwkJrgoBhyohjO8%3D">
+          <div class="relative rounded-xl overflow-hidden aspect-video mb-3  flex items-center justify-center">
+             <img src="../public/video3.jpg" alt="">
+            <span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs font-medium px-1.5 py-0.5 rounded">42:18</span>
+            <div class="thumb-overlay absolute inset-0 bg-black/20 flex items-center justify-center">
+              <div class="w-12 h-12 bg-black/70 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+            </div>
+          </div>
+          </a>
+          <div class="flex gap-3">
+            <div class="w-9 h-9 rounded-full flex-shrink-0 bg-green-700 flex items-center justify-center text-white text-xs font-bold">N</div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[#f1f1f1] text-sm font-medium leading-snug line-clamp-2 mb-1">Africa's Hidden Wonders — Untold Stories of the Continent</p>
+              <p class="text-[#aaa] text-[13px]">NatGeo Africa</p>
+              <p class="text-[#aaa] text-[13px]">1.2M views · 3 days ago</p>
+            </div>
+            <button class="menu-btn text-[#aaa] hover:text-white flex-shrink-0 self-start pt-0.5 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="video-card cursor-pointer group">
+          <div class="relative rounded-xl overflow-hidden aspect-video mb-3 bg-gradient-to-br from-[#0a0a2a] to-[#1a1a5a] flex items-center justify-center">
+            <img src="../public/video4.avif" alt="">
+           
+            <span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs font-medium px-1.5 py-0.5 rounded">24:03</span>
+            <div class="thumb-overlay absolute inset-0 bg-black/20 flex items-center justify-center">
+              <div class="w-12 h-12 bg-black/70 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <div class="w-9 h-9 rounded-full flex-shrink-0 bg-blue-700 flex items-center justify-center text-white text-xs font-bold">TC</div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[#f1f1f1] text-sm font-medium leading-snug line-clamp-2 mb-1">The Future of AI in Africa — What You Need to Know in 2025</p>
+              <p class="text-[#aaa] text-[13px]">TechCentral NG</p>
+              <p class="text-[#aaa] text-[13px]">89K views · 5 hours ago</p>
+            </div>
+            <button class="menu-btn text-[#aaa] hover:text-white flex-shrink-0 self-start pt-0.5 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /video grid -->
+    
+
+    </main>
+  </div>
+
+</body>
+</html>

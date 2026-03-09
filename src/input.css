@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@theme {
+      --color-yt-bg:           #0f0f0f;
+      --color-yt-surface:      #272727;
+      --color-yt-hover:        #3f3f3f;
+      --color-yt-red:          #ff0000;
+      --color-yt-text:         #f1f1f1;
+      --color-yt-muted:        #aaaaaa;
+      --color-yt-border:       #3f3f3f;
+      --font-yt:               'Roboto', sans-serif;
+}
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--color-yt-bg); }
+    ::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
+
+    .sidebar-icon-btn:hover { background: var(--color-yt-surface); border-radius: 10px; }
+    .chip:hover { background: #e5e5e5; color: #000; }
+    .chip-active { background: #fff; color: #000; }
+    .chip-inactive { background: var(--color-yt-surface); color: var(--color-yt-text); }
+    .nav-icon:hover { background: #272727; border-radius: 50%; }
+    .sidebar-item:hover { background: #272727; border-radius: 10px; }
+    .sidebar-item.active { background: #272727; border-radius: 10px; font-weight: 600; }
+    .video-card:hover .thumb-overlay { opacity: 1; }
+    .thumb-overlay { opacity: 0; transition: opacity 0.2s; }
+    .short-card:hover { transform: scale(1.03); transition: transform 0.2s; }
+    .search-bar:focus { outline: none; border-color: #1c62b9; }
+    .search-btn:hover { background: #303030; }
+
+     body {
+      background-color: var(--color-yt-bg);
+      color: var(--color-yt-text);
+      font-family: 'Roboto', Arial, sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+    }
